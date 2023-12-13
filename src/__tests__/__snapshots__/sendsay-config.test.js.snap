@@ -213,6 +213,7 @@ runs:
   using: composite
   steps:
     - name: Comment
+      if: \${{ !env.ACT }}
       uses: sendsay-ru/rewritable-pr-comment@v1.0.1
       with:
         message: "\${{ inputs.title }} \\n\\n
@@ -234,8 +235,10 @@ runs:
   using: composite
   steps:
     - name: Setup node
-      uses: actions/setup-node@v3
+      if: \${{ !env.ACT }}
+      uses: actions/setup-node@v4
       with:
+        cache: yarn
         node-version: 16
 
     - name: Install packages

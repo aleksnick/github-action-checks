@@ -6,8 +6,10 @@ runs:
   using: composite
   steps:
     - name: Setup node
-      uses: actions/setup-node@v3
+      if: ${{ !env.ACT }}
+      uses: actions/setup-node@v4
       with:
+        cache: yarn
         node-version: <%- node || 16 %>
     <% if (installCommand) { %>
     - name: Install packages
